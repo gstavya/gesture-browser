@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gesture Assistant</title>
+  <link rel="stylesheet" href="assistant.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Gesture Assistant</h1>
+    
+    <div class="status-section">
+      <div id="statusIndicator" class="status-indicator"></div>
+      <span id="statusText">Initializing camera...</span>
+    </div>
+
+    <div class="camera-section">
+      <video id="videoElement" autoplay playsinline></video>
+      <canvas id="canvasElement"></canvas>
+    </div>
+
+    <div class="gesture-info">
+      <h2>Detected Gesture</h2>
+      <div id="gestureText" class="gesture-box">No gesture detected</div>
+    </div>
+
+    <div class="action-section">
+      <h2>Action</h2>
+      <div id="actionText" class="action-box">Waiting for gesture...</div>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn" class="control-btn">Start Camera</button>
+      <button id="stopBtn" class="control-btn stop hidden">Stop Camera</button>
+    </div>
+
+        <div class="gesture-guide">
+          <h2>Gesture Guide</h2>
+          <div class="guide-item">
+            <span class="gesture-number">3</span>
+            <span class="gesture-desc">Eye Click</span>
+          </div>
+          <div class="guide-item">
+            <span class="gesture-number">14</span>
+            <span class="gesture-desc">Close Current Tab</span>
+          </div>
+          <div class="guide-item">
+            <span class="gesture-number">17</span>
+            <span class="gesture-desc">Mute All Tabs</span>
+          </div>
+          <div class="guide-item">
+            <span class="gesture-number">19</span>
+            <span class="gesture-desc">Open Claude.ai</span>
+          </div>
+          <div class="guide-item">
+            <span class="gesture-number">20</span>
+            <span class="gesture-desc">Open New Window</span>
+          </div>
+          <div class="guide-item">
+            <span class="gesture-number">21</span>
+            <span class="gesture-desc">Close Current Tab</span>
+          </div>
+          <div class="guide-item">
+            <span class="gesture-number">26</span>
+            <span class="gesture-desc">Open Gemini</span>
+          </div>
+          <div class="guide-item">
+            <span class="gesture-number">23</span>
+            <span class="gesture-desc">Unmute All Tabs</span>
+          </div>
+          <div class="guide-item">
+            <span class="gesture-number">30</span>
+            <span class="gesture-desc">Force Quit Chrome</span>
+          </div>
+        </div>
+
+    <div id="errorMessage" class="error hidden"></div>
+  </div>
+  
+  <!-- Flask server-based detection (no ONNX needed) -->
+  <script src="assistant.js"></script>
+</body>
+</html>

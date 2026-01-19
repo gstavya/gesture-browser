@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 10px 5px;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .info {
+      background: #e7f3ff;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chrome Extension Icon Generator</h1>
+  <div class="info">
+    <p>Click the button below to generate and download the required icon files.</p>
+    <p>After downloading, place them in the <code>icons/</code> folder.</p>
+  </div>
+  
+  <button onclick="generateIcons()">Generate All Icons</button>
+  
+  <div id="status"></div>
+
+  <script>
+    function generateIcon(size) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      
+      // Create gradient background
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, '#667eea');
+      gradient.addColorStop(1, '#764ba2');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+      
+      // Add a simple "E" letter in the center
+      ctx.fillStyle = 'white';
+      ctx.font = `bold ${size * 0.6}px Arial`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('E', size / 2, size / 2);
+      
+      return canvas;
+    }
+    
+    function downloadCanvas(canvas, filename) {
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 'image/png');
+    }
+    
+    function generateIcons() {
+      const status = document.getElementById('status');
+      status.innerHTML = '<p>Generating icons...</p>';
+      
+      const sizes = [16, 48, 128];
+      let count = 0;
+      
+      sizes.forEach((size, index) => {
+        setTimeout(() => {
+          const canvas = generateIcon(size);
+          downloadCanvas(canvas, `icon${size}.png`);
+          count++;
+          
+          if (count === sizes.length) {
+            status.innerHTML = '<p style="color: green;">✓ All icons generated! Check your downloads folder and move them to the icons/ folder.</p>';
+          }
+        }, index * 500); // Stagger downloads
+      });
+    }
+  </script>
+</body>
+</html>
+

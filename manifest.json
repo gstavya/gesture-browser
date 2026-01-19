@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Camera & Gesture Assistant Extension",
+  "version": "1.0.0",
+  "description": "Camera viewer and gesture-controlled browser assistant",
+  "permissions": [
+    "windows",
+    "tabs",
+    "storage",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://api.openai.com/*",
+    "https://cdn.jsdelivr.net/*",
+    "http://localhost:5001/*",
+    "<all_urls>"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "YOLOv10x_gestures.pt",
+        "YOLOv10x_gestures.onnx",
+        "lib/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
+
